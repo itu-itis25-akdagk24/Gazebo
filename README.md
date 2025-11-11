@@ -2,13 +2,19 @@
 Gazebo and ArduPilot setup, including some model and world configurations.
 
 Ubuntu 22.04
+
 Gazebo Sim Harmonic, version 8.10.0
+
 ArduPilot-4.6.0
+
 NOTE: The ArduPilot plugin does not depend on ROS. Therefore, in this setup, we will skip ROS installation for now. In the future, it may be necessary.
 
 All the documents using this setup are listed below:
+
 https://gazebosim.org/docs/harmonic/install_ubuntu/ gazebo harmonic installation
+
 https://ardupilot.org/dev/docs/sitl-with-gazebo.html ardupilot+gazebo plugin
+
 https://discuss.ardupilot.org/uploads/default/original/2X/d/d7083377f747deab79798e7a9cef58d433ff5f66.pdf multiple drones
 
 ## Gazebo Harmonic Installation
