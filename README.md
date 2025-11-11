@@ -86,6 +86,43 @@ takeoff 10
 
 If, at the end of the SITL terminal, you can see “heartbeat received” and do not see any “JSON message not received” errors, you can use the ArduPilot plugin and Gazebo properly. After this step, we can edit our worlds and models and start using them.
 
+## Multiple Drone Simülation Environment
+Firsty, please clone this github repo on your computer.(if you have an issue about cloning, just download as a zip.No problem)
+```bash
+https://github.com/itu-itis25-akdagk24/Simulation-environment-setup.git
+#password: if you dont have any of them please take a personal acces token from githup.
+```
+please be unsure that all the files are with you.
+```bash
+cd Simulation-environment-setup/
+ls
+""" you should see something like that:
+exp_drone_control.py       iris_runway_multidrone.sdf   iris_with_gimbal_2
+initialize.py              iris_runway_singledrone.sdf  iris_with_gimbal_3
+iris_runway_dualdrone.sdf  iris_with_gimbal_1           README.md
+"""
+```
+Now, you have to move this worlds files and model files to the relevant place in gz_ws which we have already work on it. You can use it manually, world files have to go to ~/gz_ws/src/ardupilot_gazebo/worlds and model folders have to go to
+~/gz_ws/src/ardupilot_gazebo/models. If you want you can use following commands also:
+
+```bash
+mv [source_directory_path] [source_directory_path]
+
+```
+At the end be ensure the:
+following fields should in the ~/gz_ws/src/ardupilot_gazebo/worlds
+iris_runway_dualdrone.sdf    
+iris_runway_multidrone.sdf   
+iris_runway_singledrone.sdf  
+
+following fields should in the ~/gz_ws/src/ardupilot_gazebo/models
+iris_with_gimbal_1
+iris_with_gimbal_2
+iris_with_gimbal_3
+
+These are very important please do not forget.
+
+
 
 
 
