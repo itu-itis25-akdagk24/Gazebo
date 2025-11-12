@@ -38,7 +38,7 @@ if __name__== "__main__":
         print("wrong enter: maksimum drone number is 3")
     initialize_gazebo_environment(drone_number)
     ardupilot_vehicle(drone_number)
-    drone_control()
+    drone_control(drone_number)
 
 
 
