@@ -141,7 +141,7 @@ After running this command, you should see:
 
 The Gazebo GUI with multiple drones\
 One ArduPilot SITL terminal, one MAVProxy console, and one MAVProxy map for each drone\
-An example drone control UI for testing your connections with some basic features (like arm, takeoff, swarm move)
+An example drone control terminal UI for testing your connections with some basic features (like arm, takeoff, swarm move)
 
 If you complete this setup and can control your drones in Gazebo, you are ready to make the drones dance.
 
