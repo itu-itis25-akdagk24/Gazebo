@@ -5,7 +5,8 @@ Ubuntu 22.04\
 Gazebo Sim Harmonic, version 8.10.0\
 ArduPilot-4.6.0
 
-NOTE: The ArduPilot plugin does not depend on ROS. Therefore, in this setup, we will skip ROS installation for now. In the future, it may be necessary.
+NOTE: The ArduPilot plugin does not depend on ROS. Therefore, in this setup, we will skip ROS installation for now. In the future, it may be necessary.\
+NOTE: At the end of this documentation, there is a Common Issues section. If you have any problems, please check that section first.
 
 All the documents using this setup are listed below:
 
@@ -27,6 +28,31 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/pkgs-
 sudo apt-get update
 sudo apt-get install gz-harmonic
 ```
+## Installing Ardupilot SITL
+Firstly, clone the ardupilot source code.
+```bash
+git clone https://github.com/ArduPilot/ardupilot.git
+cd ardupilot
+git submodule update --init --recursive
+```
+Install the SITL dependencies.
+```bash
+Tools/environment_install/install-prereqs-ubuntu.sh -y
+```
+Build SITL
+```bash
+cd ArduCopter
+./waf configure --board sitl
+./waf copter
+```
+Do not forget sim_vehicle.py PATH Setup
+
+İf you skip this step, probably you will have "sim_vehicle.py can not be found" error.
+```bash
+echo 'export PATH=$PATH:$HOME/ardupilot/Tools/autotest' >> ~/.bashrc
+source ~/.bashrc
+```
+
 ## Using Ardupilot SITL with Gazebo¶
 
 Firstly, check your Gazebo. This command should open a world with various shapes.
@@ -56,10 +82,24 @@ cmake .. -DCMAKE_BUILD_TYPE=RelWithDebInfo
 make -j4
 ```
 ### Configure the Gazebo environment¶
-Do not forget to run these two commands:
+Do not forget to run these two commands:(If you skip this step, you can not start the gazebo)
 ```bash
 echo 'export GZ_SIM_SYSTEM_PLUGIN_PATH=$HOME/gz_ws/src/ardupilot_gazebo/build:${GZ_SIM_SYSTEM_PLUGIN_PATH}' >> ~/.bashrc
-echo 'export GZ_SIM_RESOURCE_PATH=$HOME/gz_ws/src/ardupilot_gazebo/models:$HOME/gz_ws/src/ardupilot_gazebo/worlds:${GZ_SIM_RESOURCE_PATH}' >> ~/.bashrc```
+echo 'export GZ_SIM_RESOURCE_PATH=$HOME/gz_ws/src/ardupilot_gazebo/models:$HOME/gz_ws/src/ardupilot_gazebo/worlds:${GZ_SIM_RESOURCE_PATH}' >> ~/.bashrc
+source ~/.bashrc
+```
+However, if you have already done this and you still have problems, try exporting the variables manually in the terminal where you will launch Gazebo:
+```bash
+export GZ_SIM_SYSTEM_PLUGIN_PATH=$HOME/gz_ws/src/ardupilot_gazebo/build:${GZ_SIM_SYSTEM_PLUGIN_PATH}
+export GZ_SIM_RESOURCE_PATH=$HOME/gz_ws/src/ardupilot_gazebo/models:$HOME/gz_ws/src/ardupilot_gazebo/worlds:${GZ_SIM_RESOURCE_PATH}
+export LD_LIBRARY_PATH=$HOME/gz_ws/src/ardupilot_gazebo/build:$LD_LIBRARY_PATH
+```
+### Installing MAVProxy
+These commands install MAVProxy and all required Python dependencies.
+```bash
+sudo apt-get install python3-dev python3-opencv python3-wxgtk4.0 python3-pip python3-matplotlib python3-lxml python3-pygame
+python3 -m pip install PyYAML mavproxy --user
+echo 'export PATH="$PATH:$HOME/.local/bin"' >> ~/.bashrc
 ```
 
 ### Using Gazebo with ArduPilot¶
@@ -144,6 +184,32 @@ One ArduPilot SITL terminal, one MAVProxy console, and one MAVProxy map for each
 An example drone control terminal UI for testing your connections with some basic features (like arm, takeoff, swarm move)
 
 If you complete this setup and can control your drones in Gazebo, you are ready to make the drones dance.
+
+Some common issues and their solutions:
+
+Python:commond not found.
+```bash
+sudo apt install python-is-python3
+```
+
+sim_vehicle.py command not found.
+```bash
+export PATH=$PATH:$HOME/ardupilot/Tools/autotest
+```
+If you have still issue please, ensure that you have complete SITL steps correctly. /
+
+Please consider the error information. For example, if it says something like:
+xxxx module not found
+then try:
+sudo apt install xxxx
+Just install it.
+
+
+
+
+
+
+
 
 
 
