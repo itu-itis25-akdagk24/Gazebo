@@ -76,6 +76,7 @@ sudo apt install libopencv-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-
 ```
 2.)Create a workspace folder and clone the repository
 ```bash
+cd
 mkdir -p gz_ws/src && cd gz_ws/src
 git clone https://github.com/ArduPilot/ardupilot_gazebo
 ```
